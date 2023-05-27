@@ -1,0 +1,6 @@
+#include <iostream>
+#define ll long long
+using namespace std;
+{ll t; cin>>t; while(t--)
+{ll l, r; cin>>l>>r;
+
