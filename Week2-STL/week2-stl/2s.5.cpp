@@ -3,47 +3,42 @@
 #define pb push_back
 #define pob pop_back
 #define vll vector<ll>
+#define vpll vector<pair<ll, ll>>
 #define sll set<ll>
+#define pll pair<ll, ll>
+#define mll map<ll, ll>
+#define pqll priority_queue<ll>
 #define ne '\n'
-#define rep(i, a, b) for (int i=a; i<b; ++i)
+#define rep(i, a, b) for (ll i=a; i<b; ++i)
+#define vecinp(v, n); rep(i, 0, n){ll x; cin>>x; v.pb(x);}
+#define sv(v) sort(v.begin(), v.end())
+#define rv(v) reverse(v.begin(), v.end())
+#define fv(v, x) find(v.begin(), v.end(), x)
+#define bsv(v, x) binary_search(v.begin(), v.end(), x)
+#define cv(v, x) count(v.begin(), v.end(), x)
+#define F first
+#define S second
 
 using namespace std;
 
 int main()
 {
-    ios_base :: sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll x, n, c=0; cin>>n;
-        vll v;
-        rep(i, 0, n) 
+        ll n; cin>>n;
+        vll v; vecinp(v, n);
+        ll c=0;
+        sv(v);
+        map<ll, ll> m;
+        for(auto i:v)
         {
-            cin>>x;
-            v.pb(x);
-        }
-        sort(v.begin(), v.end());
-        auto it = v.begin();
-        while(true)
-        {it = v.begin();
-        while(true)
-        {
-            auto jt = --v.end();
-            v.erase(it);
-            if (it != jt) 
-            {
-                v.pop_back();
-            }
-            
-            if (find(it, v.end(), (*it +1))==v.end())
+            if (m[i]) {m[i]--; m[i+1]++;}
+            else 
             {
                 c++;
-                break;
+                m[i+1]++;
             }
-            else{
-                it = find(it, v.end(), *it +1);
-            }
-        }
-        if (it == v.end()) break;
         }
         cout<<c<<ne;
     }
