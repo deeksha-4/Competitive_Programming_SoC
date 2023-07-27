@@ -3,76 +3,87 @@
 #define pb push_back
 #define pob pop_back
 #define vll vector<ll>
+#define vpll vector<pair<ll, ll>>
 #define sll set<ll>
+#define pll pair<ll, ll>
+#define mll map<ll, ll>
+#define pqll priority_queue<ll>
 #define ne '\n'
-#define rep(i, a, b) for (int i=a; i<b; ++i)
+#define rep(i, a, b) for (ll i=a; i<b; ++i)
+#define vecinp(v, n); rep(i, 0, n){ll x; cin>>x; v.pb(x);}
+#define sv(v) sort(v.begin(), v.end())
+#define rv(v) reverse(v.begin(), v.end())
+#define fv(v, x) find(v.begin(), v.end(), x)
+#define bsv(v, x) binary_search(v.begin(), v.end(), x)
+#define cv(v, x) count(v.begin(), v.end(), x)
+#define F first
+#define S second
 
 using namespace std;
 
 int main()
 {
-    ios_base :: sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll n, m, k; cin>>n>>m;
-        sll s;
-        rep(i, 0, n)
-        {
-            cin>>k;
-            s.insert(k);
-        }
-        rep(i, 0, m)
+        ll n, m; cin>>n>>m;
+        vll v; vecinp(v, n);
+        sv(v);
+        while(m--)
         {
             ll a, b, c; cin>>a>>b>>c;
-if (a*c >=0)
-        {    double f = sqrt(fabs(a));
-            f *= sqrt(fabs(c));
-            double m1 = 2*f + b;
-            double m2 = -2*f + b;
-
-        if (m1*m2 >0){
-
-            if (m1>=*(--s.end()) && m2<=*(s.begin()))
+            if (c<=0) {cout<<"NO"<<ne; continue;}
+            double m1 = b - 2* sqrt(a*c), m2 = b + 2* sqrt(a*c);
+            if (b*b-4*a*c<=0){
+            if (m1*m2<=0)
             {
-                cout<<"NO"<<ne;
+                bool f=0;
+                ll l=0, r=n-1, ans, mid;
+                while(l<=r)
+                {
+                    mid = (l+r)/2;
+                    if (v[mid]<m2 && v[mid]>m1)
+                    {
+                        cout<<"YES"<<ne<<v[mid]<<ne; f=1; break;
+                    }
+                    else if (v[mid]>=m2) r = mid-1;
+                    else l = mid+1;
+                }
+                if (f==0) cout<<"NO"<<ne;
             }
-            else if (m1<*(--s.end()))
+            else if (m1>0)
             {
-                cout<<"YES"<<ne;
-                cout<<*(--s.end())<<ne;
-            }
-            else 
-            {
-                cout<<"YES"<<ne;
-                cout<<*(s.begin())<<ne;
-            }
-        }
-
-        else if (m1==0 && m2 < 0)
-        {
-            if (*(s.begin())>m2 && *(s.begin())<0) cout<<"YES"<<ne<<*(s.begin())<<ne;
-            else cout<<"NO"<<ne;
-        }
-
-        else{
-            if (m1<=*(--s.end()) && m2>=*(s.begin()))
-            {
-                cout<<"NO"<<ne;
-            }
-            else if (m1>*(--s.end()))
-            {
-                cout<<"YES"<<ne;
-                cout<<*(--s.end())<<ne;
+                if (v[n-1]>m2)   cout<<"YES"<<ne<<v[n-1]<<ne;
+                else if (v[0]<m1) cout<<"YES"<<ne<<v[0]<<ne;
+                else cout<<"NO"<<ne;
             }
             else 
             {
-                cout<<"YES"<<ne;
-                cout<<*(s.begin())<<ne;
+                if (v[n-1]>m1)   cout<<"YES"<<ne<<v[n-1]<<ne;
+                else if (v[0]<m2) cout<<"YES"<<ne<<v[0]<<ne;
+                else cout<<"NO"<<ne;
+            }
+            }
+            else
+            {
+                bool f=0;
+                if (c<=0) cout<<"NO"<<ne;
+                else 
+                {
+                                   ll l=0, r=n-1, ans, mid;
+                while(l<=r)
+                {
+                    mid = (l+r)/2;
+                    if (v[mid]<m2 && v[mid]>m1)
+                    {
+                        cout<<"YES"<<ne<<v[mid]<<ne; f=1; break;
+                    }
+                    else if (v[mid]>=m2) r = mid-1;
+                    else l = mid+1;
+                }
+                if (f==0) cout<<"NO"<<ne;
+                }
             }
         }
-        }
-        else cout<<"NO"<<ne;
-        }
-
     }
 }
