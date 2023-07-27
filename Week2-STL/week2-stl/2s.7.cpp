@@ -3,37 +3,56 @@
 #define pb push_back
 #define pob pop_back
 #define vll vector<ll>
+#define vpll vector<pair<ll, ll>>
 #define sll set<ll>
+#define pll pair<ll, ll>
+#define mll map<ll, ll>
+#define pqll priority_queue<ll>
 #define ne '\n'
-#define rep(i, a, b) for (int i=a; i<b; ++i)
+#define rep(i, a, b) for (ll i=a; i<b; ++i)
+#define vecinp(v, n); rep(i, 0, n){ll x; cin>>x; v.pb(x);}
+#define sv(v) sort(v.begin(), v.end())
+#define rv(v) reverse(v.begin(), v.end())
+#define fv(v, x) find(v.begin(), v.end(), x)
+#define bsv(v, x) binary_search(v.begin(), v.end(), x)
+#define cv(v, x) count(v.begin(), v.end(), x)
+#define F first
+#define S second
 
 using namespace std;
 
 int main()
 {
-    ios_base :: sync_with_stdio(false); cin.tie(0); cout.tie(0);
-    ll T; cin>>T; while(T--)
+    ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    ll t; cin>>t; while(t--)
     {
-        ll s=0;
         ll n, q; cin>>n>>q;
-        ll a[n][2];
+        ll a[1001][1001];
+        rep(i, 0, 1001){
+        rep(j, 0, 1001) a[i][j]=0;}
+        
         rep(i, 0, n)
         {
-            cin>>a[i][0]>>a[i][1];
+            ll h, w; cin>>h>>w;
+            a[h][w]+=h*w;
         }
-        rep(k, 0, q)
+
+
+
+        rep(i, 1, 1001)
         {
-            s=0;
-            ll hs, ws, hb, wb;
-            cin>>hs>>ws>>hb>>wb;
-            rep(i, 0, n)
+            rep(j, 1, 1001)
             {
-                if (hs<a[i][0] && a[i][0]<hb && ws<a[i][1] && a[i][1]<wb)
-                {
-                    s+=a[i][0]*a[i][1];
-                }
+                a[i][j] = a[i-1][j]+a[i][j-1]-a[i-1][j-1]+a[i][j];
             }
-            cout<<s<<ne;
+        }
+
+        while(q--)
+        {
+            ll hs, ws, hb, wb;
+            cin>>hs>>ws>>hb>>wb; ll s=0;
+            // hs+1, ws+1 -> hb-1 ,wb-1
+            cout<<a[hb-1][wb-1]-a[hb-1][ws]-a[hs][wb-1]+a[hs][ws]<<ne;
         }
     }
 }
