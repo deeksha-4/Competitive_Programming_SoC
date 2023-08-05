@@ -24,33 +24,38 @@ using namespace std;
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    ll t; cin>>t; while(t--)
+    ll n, m; cin>>n>>m;
+    vector<vector<bool>> a(n+2, vector<bool>(m+2));
+    rep(i, 1, n+1)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        rep(j, 1, m+1)
         {
-            ll x; cin>>x; pos[x]=i;
-        }
-        ll e1, e2;
-        if (n%2==0)
-        {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
+            char x;
+            cin>>x;
+            if (x=='.') a[i][j]=1;
+            else a[i][j]=0;
         }
     }
+    ll c=0;
+    rep(i, 1, n+1)
+    {
+        rep(j, 1, m+1)
+        {
+            if (!a[i][j]) continue;
+            vpll x;
+            x.pb({i, j});
+            c++;
+            while(x.size())
+            {
+                pll e = *(--x.end());
+                x.pob();
+                a[e.first][e.second]=0;
+                if (a[e.F+1][e.S]) x.pb({e.F+1, e.S});
+                if (a[e.F-1][e.S]) x.pb({e.F-1, e.S});
+                if (a[e.F][e.S+1]) x.pb({e.F, e.S+1});
+                if (a[e.F][e.S-1]) x.pb({e.F, e.S-1});
+            }
+        }
+    }
+    cout<<c;
 }

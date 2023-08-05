@@ -17,27 +17,10 @@ using namespace std;
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    ll n, k; cin>>n>>k;
-    vll v; vecinp(v, n);
-    ll i=0, j=1;
-    sll s; map<ll, ll> m;
-    ll l, r, fi;
-    while(i<n)
+    ll t; cin>>t; while (t--)
     {
-        s.insert(v[i]); fi=v[i];
-        m[v[i]]=i;
-        j=i+1;
-        m[v[j]]=j;
-        s.insert(v[j]);
-        while(j<n)
-        {
-            if (s.size()>k)
-            {
-                m.erase(fi);
-                k--;
-                s.erase(fi);
-            }
-            
-        }
-    }
+        ll n; cin>>n; vll v;
+        vecinp(v, n);
+        
+    }    
 }

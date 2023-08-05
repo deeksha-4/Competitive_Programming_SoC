@@ -26,31 +26,15 @@ int main()
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        ll n, m, k, h; cin>>n>>m>>k>>h; vll v;
+        vecinp(v, n); ll c=0;
+        rep(i, 0, n)
         {
-            ll x; cin>>x; pos[x]=i;
+            if (abs(h-v[i])%k==0)
+            {
+                if (abs(h-v[i])/k<=(m-1) && h!=v[i]) c++;
+            }
         }
-        ll e1, e2;
-        if (n%2==0)
-        {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
-        }
+        cout<<c<<ne;
     }
 }

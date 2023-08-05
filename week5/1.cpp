@@ -24,33 +24,45 @@ using namespace std;
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+
+    vll m(2e7+1, 0), n(2e7+1);
+    m[1]=1;
+    rep(i, 2, 2e7+1)
+    {
+        if (!m[i])
+        {
+            for (ll j=i; j<2e7+1; j+=i)
+            {
+                m[j]=i;
+            }
+        }
+        
+    }
+    rep(i, 2, 2e7+1)
+    {
+        if (m[i/m[i]]==m[i]) n[i]=n[i/m[i]];
+        else n[i]=n[i/m[i]]+1;
+    }
+
     ll t; cin>>t; while(t--)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        ll c, d, x; cin>>c>>d>>x;
+        sll s; ll co=0;
+        rep(i, 1, sqrt(x))
         {
-            ll x; cin>>x; pos[x]=i;
+            if (x%i==0)
+            {
+                ll a1=i+d, a2=x/i+d;
+                if (a1%c==0) co+=pow(2, n[a1/c]);
+                if (a2%c==0) co+=pow(2, n[a2/c]);
+            }
+            
         }
-        ll e1, e2;
-        if (n%2==0)
+        if (floor(sqrt(x))==sqrt(x)) 
         {
-            e1=n/2; e2=e1+1;
+            ll a = sqrt(x)+d;
+            if (a%c==0) co+=pow(2, n[a/c]);
         }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
-        }
+        cout<<co<<ne;
     }
 }

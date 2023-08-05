@@ -26,31 +26,33 @@ int main()
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        ll n, q; cin>>n>>q;
+        ll a[1001][1001];
+        rep(i, 0, 1001){
+        rep(j, 0, 1001) a[i][j]=0;}
+        
+        rep(i, 0, n)
         {
-            ll x; cin>>x; pos[x]=i;
+            ll h, w; cin>>h>>w;
+            a[h][w]+=h*w;
         }
-        ll e1, e2;
-        if (n%2==0)
+
+
+
+        rep(i, 1, 1001)
         {
-            e1=n/2; e2=e1+1;
+            rep(j, 1, 1001)
+            {
+                a[i][j] = a[i-1][j]+a[i][j-1]-a[i-1][j-1]+a[i][j];
+            }
         }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
+
+        while(q--)
         {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
+            ll hs, ws, hb, wb;
+            cin>>hs>>ws>>hb>>wb; ll s=0;
+            // hs+1, ws+1 -> hb-1 ,wb-1
+            cout<<a[hb-1][wb-1]-a[hb-1][ws]-a[hs][wb-1]+a[hs][ws]<<ne;
         }
     }
 }

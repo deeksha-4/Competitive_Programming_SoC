@@ -21,36 +21,45 @@
 
 using namespace std;
 
+void chk(ll node, ll parent, ll fall[], vll a[], ll n, ll size[])
+{
+    //
+    fall[node]=0;
+    if (size[node]==0) fall[node]=1;
+    for (auto u: a[node])
+    {
+        if (u== parent) continue;
+        chk(u, node, fall, a, n, size);
+        fall[node]+=fall[u];
+    }
+}
+
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        ll n; cin>>n;
+        vll a[n+1];
+        rep(i, 0, n-1)
         {
-            ll x; cin>>x; pos[x]=i;
+            ll u, v; cin>>u>>v;
+            a[u].pb(v); a[v].pb(u);
         }
-        ll e1, e2;
-        if (n%2==0)
+        ll size[n+1];
+        ll fall[n+1];
+        
+        size[1]=a[1].size();
+        rep(i, 2, n+1)
         {
-            e1=n/2; e2=e1+1;
+            size[i]=a[i].size()-1;
         }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
+        chk(1, 0, fall, a, n, size);
+        ll q; cin>>q; while (q--)
         {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
+            ll x, y; cin>>x>>y;
+            cout<<fall[x]*fall[y]<<ne;
+            
         }
     }
 }

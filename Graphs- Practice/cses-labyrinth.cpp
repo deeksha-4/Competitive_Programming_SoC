@@ -24,33 +24,31 @@ using namespace std;
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    ll t; cin>>t; while(t--)
+    ll n, m; cin>>n>>m;
+    vector<vector<bool>> a(n+2, vector<bool>(m+2)); pll start, end;
+    rep(i, 1, n+1)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        rep(j, 1, m+1)
         {
-            ll x; cin>>x; pos[x]=i;
+            char x; cin>>x;
+            if (x=='.') a[i][j]=1;
+            else if (x=='A') start = {i, j};
+            else if (x=='B') end = {i, j};
         }
-        ll e1, e2;
-        if (n%2==0)
+    }
+    vector<vector<pair<ll, ll>>> pre;
+    
+    queue<pll> q;
+    q.push(start);
+
+    while(q.size())
+    {
+        pll e = q.front();
+        q.pop();
+        if (!a[e.F][e.S]) continue;
+        if (a[e.F+1][e.S])
         {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
+            pre[e.F+1][e.S]=e;
         }
     }
 }

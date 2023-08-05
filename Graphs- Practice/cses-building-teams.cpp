@@ -20,37 +20,41 @@
 #define S second
 
 using namespace std;
+bool f=0;
+
+void ass(vector<int> ch, ll i, int x, vll a[])
+{
+    if (find(ch.begin()+1, ch.end(), 0)==ch.end()) return;
+    int y;
+    if (x==1) y = 2;
+    else y=1;
+    for (auto u: a[i])
+    {
+        if (ch[u]==x)
+        {
+            f=1; return;
+        }
+        ch[u]=y;
+    }
+    for (auto u:a[i])
+    {
+        ass(ch, u, y, a);
+    }
+}
 
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    ll t; cin>>t; while(t--)
+    ll n, m; cin>>n>>m;
+    vll a[n+1];
+    rep(i, 0, m)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
-        {
-            ll x; cin>>x; pos[x]=i;
-        }
-        ll e1, e2;
-        if (n%2==0)
-        {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
-        }
+        ll x, y; cin>>x>>y; 
+        a[x].pb(y); a[y].pb(x);
     }
+    vector<int> ch(n+1);
+    ch[1]=1;
+    ass(ch, 1, 1, a);
+    if (f==1) {cout<<"IMPOSSIBLE"; return 0;}
+    rep(i, 1, n+1) cout<<ch[i]<<" ";
 }

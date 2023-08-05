@@ -24,33 +24,24 @@ using namespace std;
 int main()
 {
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    ll t; cin>>t; while(t--)
+    ll n, q; cin>>n>>q;
+    vll v;
+    vll len(n);
+    vecinp(v, n);
+    len[0]=1;
+    len[1]=2;
+    rep(i, 2, n)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
+        if (len[i-1]+1<=2) len[i]=1+len[i-1];
+        else if (v[i-2]>=v[i-1] && v[i-1]>v[i])
         {
-            ll x; cin>>x; pos[x]=i;
+            len[i]=2;
         }
-        ll e1, e2;
-        if (n%2==0)
+        else
         {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
-        bool f=0;
-        while(e1>0 && e2<=n)
-        {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
-        }
-        if (f==0)
-        {
-            cout<<0<<ne;
+            len[i]=len[i-1]+1;
         }
     }
+    sv(len);
+    cout<<len[n-1]<<ne;
 }

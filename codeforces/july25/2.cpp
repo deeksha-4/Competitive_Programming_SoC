@@ -26,31 +26,20 @@ int main()
     ios_base :: sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ll t; cin>>t; while(t--)
     {
-        ll n; cin>>n; vll pos(n+1);
-        rep(i, 1, n+1)
-        {
-            ll x; cin>>x; pos[x]=i;
-        }
-        ll e1, e2;
-        if (n%2==0)
-        {
-            e1=n/2; e2=e1+1;
-        }
-        else{
-            e2=(n+1)/2+1;
-            e1=(n+1)/2-1;
-        }
-        ll c=0;
-        // if (pos[e1]>pos[e1+1] || pos[e2]) c++;
         bool f=0;
-        while(e1>0 && e2<=n)
+        ll n; cin>>n;
+        vll v, w, r1, r2(n);
+        rep(i, 0, n)
         {
-            if (pos[e1]>pos[e1+1] || pos[e2]<pos[e2-1]) {cout<<n/2-c<<ne; f=1; break;}
-            e1--; e2++; c++;
+            ll x; cin>>x; v.pb(x); w.pb(x);
+            r1.pb(x%2);
         }
-        if (f==0)
+        sort(w.begin(), w.end());
+        rep(i, 0, n)
         {
-            cout<<0<<ne;
+            r2[i]=w[i]%2;
+            if (r2[i]!=r1[i]) {cout<<"NO"<<ne;; f=1; break;}
         }
+        if (f==0) cout<<"YES"<<ne;   
     }
 }
