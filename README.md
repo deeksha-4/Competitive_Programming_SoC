@@ -1,7 +1,7 @@
 # SoC - Competitive Programming: Newbie to Master
-## Name: Deeksha Dhiwakar
-## Roll Number: 22B0988
-## Mentors: Kunal Kundwani, Parth Dwivedi
+**Name: Deeksha Dhiwakar**
+**Roll Number: 22B0988**
+**Mentors: Kunal Kundwani, Parth Dwivedi**
 
 ## Week 1
 * First four chapters of handbook shared by mentors; 
