@@ -1,5 +1,6 @@
 # SoC - Competitive Programming: Newbie to Master
 **Name: Deeksha Dhiwakar**
+**sesamestaples** on CodeChef and CodeForces
 
 **Roll Number: 22B0988**
 
